@@ -1,0 +1,11 @@
+<h2 style="text-align:center;">Page 1</h2>
+<div class="container">
+<select class="browser-default custom-select" [(ngModel)]='selectedValue'>
+  <option *ngFor="let user of users" value="{{user.value}}">
+      {{user.viewValue}}
+  </option>
+</select>
+<div class="float-left" style="margin-top:10px;">
+  <button (click)="login()">Submit</button>
+</div>
+</div>
