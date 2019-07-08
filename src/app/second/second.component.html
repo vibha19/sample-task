@@ -1,9 +1,11 @@
 <h2 style="text-align:center;">Page 2</h2>
+<p class="bk" (click)="goBack()">Back</p>
 <div class="container">
     <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit(formGroup.value)">
             <div formArrayName="features">
                 <div class="form-group" style="width:25%;"
                     *ngFor="let feature of features.controls; let index = index; let last = last">
+                    <label>Enter IP Address:</label>
                     <input type="text" class="form-control col-sm-8" (ngModelChange)="valuechange($event)"
                       placeholder="0.0.0.0"  [formControlName]="index" title="feature">
                     <span class="minusBtn" *ngIf="features.controls.length>1" (click)="removeFeature(index)"><span
@@ -12,12 +14,12 @@
                         <span class="addBtn" *ngIf="last" (click)="addFeature()"><span
                                 class="glyphicon glyphicon-plus"></span></span>
                         <span class="alert" *ngIf="feature.invalid ">Required valid IP</span>
-                        <br><br>
+                        <br>
                     </div>
                 </div>
             </div>
-        <div class="form-group">
-            <button class="btn btn-primary" [disabled]="!formGroup.valid || isSaved ">Save</button>
+        <div class="form-group" style="margin-top:20px;float: left;">
+            <button type="button" class="btn btn-success" [disabled]="!formGroup.valid || isSaved ">Save</button>
         </div>
     </form>
 </div>

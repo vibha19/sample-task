@@ -18,6 +18,7 @@ export class FirstComponent implements OnInit {
     { value: 'Basic', viewValue: 'Basic' },
     { value: 'Premium', viewValue: 'Premium' },
   ];
+  error: string;
 
   constructor(private router: Router) { }
 
@@ -25,9 +26,12 @@ export class FirstComponent implements OnInit {
   }
 
   login() {
-    if (typeof (Storage) !== "undefined") {
+    if (typeof (Storage) !== undefined && this.selectedValue != undefined) {
+      this.error ="";
       localStorage.setItem("user", this.selectedValue);
+      this.router.navigate(['/page2']);
+    }else{
+      this.error ="Please select option";
     }
-    this.router.navigate(['/page2']);
   }
 }

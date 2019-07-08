@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-second',
@@ -13,7 +14,8 @@ export class SecondComponent {
   mymodel: any;
 
   
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private router: Router) { }
 
   formGroup = this.fb.group({
     features: this.fb.array([this.fb.control('', Validators.compose([
@@ -55,6 +57,10 @@ onSubmit(ips) {
   this.isSaved = true;
   console.log( localStorage.getItem("ipAddress"));
  }
+}
+
+goBack(){
+  this.router.navigate(['']);
 }
 
 }
