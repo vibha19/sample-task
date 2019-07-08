@@ -11,6 +11,7 @@ export class SecondComponent {
   data: any;
   isSaved: boolean;
   mymodel: any;
+
   
   constructor(private fb: FormBuilder) { }
 
@@ -47,7 +48,7 @@ export class SecondComponent {
     this.features.removeAt(index);
   }
 
-  onSubmit(ips) {
+onSubmit(ips) {
  if(ips.features != ""){
   this.data = ips;
   localStorage.setItem("ipAddress", this.data.features);

@@ -15,19 +15,19 @@ export class FirstComponent implements OnInit {
   selectedValue: string;
 
   users: User[] = [
-    {value: 'Basic', viewValue: 'Basic'},
-    {value: 'Premium', viewValue: 'Premium'},
+    { value: 'Basic', viewValue: 'Basic' },
+    { value: 'Premium', viewValue: 'Premium' },
   ];
- 
-  constructor(private router: Router) {}
-        
+
+  constructor(private router: Router) { }
+
   ngOnInit() {
   }
 
-  login()  {
-if (typeof(Storage) !== "undefined") {
-  localStorage.setItem("user", this.selectedValue);
+  login() {
+    if (typeof (Storage) !== "undefined") {
+      localStorage.setItem("user", this.selectedValue);
+    }
+    this.router.navigate(['/page2']);
   }
-  this.router.navigate(['/page2']);
-}
 }
