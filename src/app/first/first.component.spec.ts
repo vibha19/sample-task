@@ -37,6 +37,14 @@ describe('FirstComponent', () => {
     expect(compiled.querySelector('h2').textContent).toContain('Page 1');
   }));
 
+  it('should render heading in a p tag', async(() => {
+    const fixture = TestBed.createComponent(FirstComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('p').textContent).toContain('Choose User Type');
+  }));
+
+
   it('should call login method', async(() => {
     const loginMock = spyOn(component, 'login');
     fixture.debugElement.query(By.css('button')).triggerEventHandler('click', null);

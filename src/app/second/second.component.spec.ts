@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SecondComponent } from './second.component';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SecondComponent', () => {
   let component: SecondComponent;
@@ -17,6 +18,7 @@ describe('SecondComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule,
+        RouterTestingModule,
         FormsModule],
       declarations: [ SecondComponent ],
       providers: [ { provide: FormBuilder, useValue: formBuilder } ]
@@ -56,7 +58,6 @@ describe('SecondComponent', () => {
 
   it('Ip field validity', () => {
     let ip = component.formGroup.controls['features']; 
-    console.log(ip);
     expect(ip.valid).toBeTruthy(); 
   });
 
