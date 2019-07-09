@@ -13,24 +13,22 @@ export class SecondComponent {
   isSaved: boolean;
   mymodel: any;
 
-  
+
   constructor(private fb: FormBuilder,
     private router: Router) { }
 
   formGroup = this.fb.group({
     features: this.fb.array([this.fb.control('', Validators.compose([
-    Validators.pattern('^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$')]))])
+      Validators.pattern('^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$')]))])
   });
 
   get features(): FormArray {
     return this.formGroup.get('features') as FormArray;
-    
   }
 
   valuechange(newValue) {
     this.isSaved = false;
     this.mymodel = newValue;
-    console.log(newValue)
   }
 
   addFeature(): void {
@@ -38,10 +36,10 @@ export class SecondComponent {
     this.userName = localStorage.getItem("user");
     if (this.userName == 'Basic' && this.features.controls.length < 5) {
       this.features.push(this.fb.control('', Validators.compose([
-      Validators.pattern('^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$')])));
+        Validators.pattern('^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$')])));
     } else if (this.userName == 'Premium' && this.features.controls.length < 10) {
       this.features.push(this.fb.control('', Validators.compose([
-      Validators.pattern('^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$')])));
+        Validators.pattern('^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$')])));
     }
   }
 
@@ -50,17 +48,17 @@ export class SecondComponent {
     this.features.removeAt(index);
   }
 
-onSubmit(ips) {
- if(ips.features != ""){
-  this.data = ips;
-  localStorage.setItem("ipAddress", this.data.features);
-  this.isSaved = true;
-  console.log( localStorage.getItem("ipAddress"));
- }
-}
+  onSubmit(ips) {
+    if (ips.features != "") {
+      this.data = ips;
+      localStorage.setItem("ipAddress", JSON.stringify(this.data));
+      this.isSaved = true;
+      console.log(localStorage.getItem("ipAddress"));
+    }
+  }
 
-goBack(){
-  this.router.navigate(['']);
-}
+  goBack() {
+    this.router.navigate(['']);
+  }
 
 }
