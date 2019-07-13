@@ -1,12 +1,13 @@
 <h2 style="text-align:center;">Page 2</h2>
 <p class="bk" (click)="goBack()">Back</p>
 <div class="container" novalidate>
+    <div class="form-container">
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
             <div formArrayName="features">
-                <div class="form-group" style="width:25%;"
+                <div class="" style="display:flex;padding:20px;"
                     *ngFor="let feature of features.controls; let index = index; let last = last">
-                    <label for="Ip">Enter IP Address:</label>
-                    <input type="text" class="form-control col-sm-8" (ngModelChange)="valuechange($event)"
+                    <label for="Ip">Enter IP Address:  </label>
+                    <input type="text" class="col-sm-8 inp-bx" (ngModelChange)="valuechange($event)"
                       placeholder="0.0.0.0"  [formControlName]="index" title="feature">
                     <span class="minusBtn" *ngIf="features.controls.length>1" (click)="removeFeature(index)"><span
                             class="glyphicon glyphicon-minus"></span></span>
@@ -18,8 +19,12 @@
                     </div>
                 </div>
             </div>
-        <div class="form-group" style="margin-top:20px;float: left;">
+        <div class="" style="padding:20px;">
             <button type="submit" class="btn btn-success" [disabled]="!formGroup.valid || isSaved ">Save</button>
-        </div>
+        </div>     
     </form>
+</div>
+<p *ngIf="isSaved" style="color:green;font-size:18px;font-weight:600;">{{msgSave}}</p>
+<p *ngIf="!isSaved" style="color:red;font-weight:600;">{{msgerror}}</p>
+<p *ngIf="limitExcced" style="color:red;font-weight:600;">{{message}}</p>
 </div>

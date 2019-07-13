@@ -4,15 +4,20 @@
     margin-bottom:0px !important;
     
 }
+input.col-sm-8.inp-bx{
+    width:16%;
+}
 
 .addBtn{
     float: right;
     color: #15a535;
+    padding:8px;
 }
 
 .minusBtn{
     color:red;
     float:right;
+    padding:8px;
 }
 
 .bk{

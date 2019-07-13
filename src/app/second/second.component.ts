@@ -12,6 +12,10 @@ export class SecondComponent {
   data: any;
   isSaved: boolean;
   mymodel: any;
+  message: string;
+  limitExcced: boolean;
+  msgSave: string;
+  msgerror: string;
 
 
   constructor(private fb: FormBuilder,
@@ -33,6 +37,7 @@ export class SecondComponent {
 
   addFeature(): void {
     this.isSaved = false;
+    this.limitExcced = false;
     this.userName = localStorage.getItem("user");
     if (this.userName == 'Basic' && this.features.controls.length < 5) {
       this.features.push(this.fb.control('', Validators.compose([
@@ -40,6 +45,9 @@ export class SecondComponent {
     } else if (this.userName == 'Premium' && this.features.controls.length < 10) {
       this.features.push(this.fb.control('', Validators.compose([
         Validators.pattern('^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$')])));
+    } else {
+      this.limitExcced = true;
+      this.message = "Input limit reach to max";
     }
   }
 
@@ -49,13 +57,18 @@ export class SecondComponent {
   }
 
   onSubmit(ips) {
-    if (ips.features != "") {
-      this.data = ips;
-      localStorage.setItem("ipAddress", JSON.stringify(this.data));
-      this.isSaved = true;
-      console.log(localStorage.getItem("ipAddress"));
+    for (let i = 0; i < ips.features.length; i++) {
+      if (ips.features[i] != "") {
+        this.data = [];
+        this.data.push(ips.features[i]);
+        localStorage.setItem("ipAddress", JSON.stringify(this.data));
+        this.isSaved = true;
+        this.msgSave = "IPs Saved Successfully";
+        console.log(localStorage.getItem("ipAddress"));
+      }
     }
   }
+
 
   goBack() {
     this.router.navigate(['']);
