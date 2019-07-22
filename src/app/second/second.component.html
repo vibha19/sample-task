@@ -20,7 +20,8 @@
                 </div>
             </div>
         <div class="" style="padding:20px;">
-            <button type="submit" class="btn btn-success" [disabled]="!formGroup.valid || isSaved ">Save</button>
+            <button type="submit" class="btn btn-success" [disabled]="!formGroup.valid || isSaved " style="margin-right:20px;">Save</button>
+            <button type="reset" class="btn btn-primary" (click)="resetForm()">Reset</button>
         </div>     
     </form>
 </div>

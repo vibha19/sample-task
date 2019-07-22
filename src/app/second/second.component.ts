@@ -16,11 +16,19 @@ export class SecondComponent {
   limitExcced: boolean;
   msgSave: string;
   msgerror: string;
+  ipValue: string;
+  ip: any;
+  ipData: any;
 
 
   constructor(private fb: FormBuilder,
     private router: Router) { }
 
+    ngOnInit() {
+      // this.ipValue = localStorage.getItem('ipAddress');
+      // this.formGroup.setControl('features', this.fb.array(JSON.parse(this.ipValue)));
+    }
+  
   formGroup = this.fb.group({
     features: this.fb.array([this.fb.control('', Validators.compose([
       Validators.pattern('^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$')]))])
@@ -39,9 +47,14 @@ export class SecondComponent {
     this.isSaved = false;
     this.limitExcced = false;
     this.userName = localStorage.getItem("user");
+
     if (this.userName == 'Basic' && this.features.controls.length < 5) {
-      this.features.push(this.fb.control('', Validators.compose([
-        Validators.pattern('^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$')])));
+      if(this.features.controls[0].value != ""){
+        this.features.push(this.fb.control('', Validators.compose([
+          Validators.pattern('^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$')])));
+      }else{
+        alert("Please enter value on first input");
+      }
     } else if (this.userName == 'Premium' && this.features.controls.length < 10) {
       this.features.push(this.fb.control('', Validators.compose([
         Validators.pattern('^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$')])));
@@ -51,15 +64,21 @@ export class SecondComponent {
     }
   }
 
+
+  resetForm(){
+    this.formGroup.reset();
+ }
+
   removeFeature(index): void {
-    this.isSaved = false;
-    this.features.removeAt(index);
+      this.limitExcced = false;
+      this.isSaved = false;
+      this.features.removeAt(index);
   }
 
   onSubmit(ips) {
+    this.data = [];
     for (let i = 0; i < ips.features.length; i++) {
-      if (ips.features[i] != "") {
-        this.data = [];
+      if (ips.features[i] != null) {
         this.data.push(ips.features[i]);
         localStorage.setItem("ipAddress", JSON.stringify(this.data));
         this.isSaved = true;
